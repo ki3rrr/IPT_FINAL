@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title','Categories | Flowers Shop Management System')
+@section('content')
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h1 class="page-title">Categories</h1><p class="text-secondary mb-0">Manage categories records.</p></div><a class="btn btn-brand" href="{{ route('admin.categories.create') }}">＋ Add category</a></div>
+<div class="card p-3"><div class="table-responsive"><table class="table align-middle"><thead><tr><th>#</th><th>Name</th><th>Description</th><th>Created</th><th>Actions</th></tr></thead><tbody>@forelse($categories as $item)<tr><td>{{ $item->id }}</td><td>{{ $item->name ?: "—" }}</td><td>{{ $item->description ?: "—" }}</td><td>{{ $item->created_at->format('M d, Y') }}</td><td class="text-nowrap"><a class="action-link action-link-edit" href="{{ route('admin.categories.edit',$item) }}">Edit</a><span class="action-separator">·</span><form class="d-inline" method="POST" action="{{ route('admin.categories.destroy',$item) }}" onsubmit="return confirm('Delete this record?')">@csrf @method('DELETE')<button type="submit" class="action-link action-link-delete">Delete</button></form></td></tr>@empty<tr><td colspan="5" class="text-center py-4">No records yet.</td></tr>@endforelse</tbody></table></div>{{ $categories->links() }}</div>
+@endsection
